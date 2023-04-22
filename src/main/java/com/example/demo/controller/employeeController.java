@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,25 +27,25 @@ public class employeeController {
     }
 
     @GetMapping("/employees/{id}")
-    public String getEmployee(@PathVariable Long id) {
-        return " displaying the employee details for the id " + id;
+    public Employee getEmployee(@PathVariable Long id) {
+        return eService.getSingleEmployee(id);
     }
 
     @PostMapping("/employees")
-    public String saveEmployee(@RequestBody Employee employee) {
-        return "Saving the employee details to the database " + employee;
+    public Employee saveEmployee(@RequestBody Employee employee) {
+        return eService.saveEmployee(employee);
 
     }
 
     @PutMapping("/employees/{id}")
     public Employee updatEmployee(@PathVariable Long id, @RequestBody Employee employee) {
-        System.out.println("updating the employee data for the id " + id);
-        return employee;
+        employee.setId(id);
+        return eService.saveEmployee(employee);
     }
 
     @DeleteMapping("/employees")
-    public String deleteEmployee(@RequestParam Long id) {
-        return "Deleting the Employee details for the id " + id;
+    public void deleteEmployee(@RequestParam Long id) {
+        eService.deleteEmployee(id);
 
     }
 }
