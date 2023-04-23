@@ -7,6 +7,8 @@ import java.util.Optional;
 import javax.management.RuntimeErrorException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.controller.Model.Employee;
@@ -19,8 +21,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     private EmployeeRepository eRepository;
 
     @Override
-    public List<Employee> getEmployee() {
-        return eRepository.findAll();
+    public List<Employee> getEmployee(int pageNumber, int pageSize) {
+        Pageable pages = PageRequest.of(pageNumber, pageSize);
+        return eRepository.findAll(pages).getContent();
     }
 
     @Override
@@ -49,5 +52,21 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public Employee updatEmployee(Employee employee) {
         return eRepository.save(employee);
+    }
+
+    @Override
+    public List<Employee> getEmployeesByName(String Name) {
+        return eRepository.findByName(Name);
+
+    }
+
+    @Override
+    public List<Employee> getEmployeesByNameAndLocation(String Name, String location) {
+        return eRepository.findByNameAndLocation(Name, location);
+    }
+
+    @Override
+    public List<Employee> getEmployeesByKeyword(String keyword) {
+        return eRepository.findByNameContaining(keyword);
     }
 }
