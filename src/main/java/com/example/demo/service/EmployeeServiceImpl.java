@@ -9,6 +9,8 @@ import javax.management.RuntimeErrorException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.controller.Model.Employee;
@@ -22,7 +24,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public List<Employee> getEmployee(int pageNumber, int pageSize) {
-        Pageable pages = PageRequest.of(pageNumber, pageSize);
+        Pageable pages = PageRequest.of(pageNumber, pageSize, Direction.DESC, "id");
         return eRepository.findAll(pages).getContent();
     }
 
@@ -67,6 +69,18 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public List<Employee> getEmployeesByKeyword(String keyword) {
-        return eRepository.findByNameContaining(keyword);
+        Sort sort = Sort.by(Sort.Direction.DESC, "createdAt");
+        return eRepository.findByNameContaining(keyword, sort);
+
+    }
+
+    @Override
+    public List<Employee> getEmployeesByNameOrLocation(String name, String location) {
+        return eRepository.getEmployeesByNameOrLocation(name, location);
+    }
+
+    @Override
+    public Integer deleteEmployeeByName(String name) {
+        return eRepository.deleteEmployeeByName(name);
     }
 }

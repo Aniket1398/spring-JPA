@@ -23,7 +23,6 @@ import lombok.ToString;
 @ToString
 @Entity
 @Table(name = "tbl_employee")
-
 public class Employee {
 
     @Id
