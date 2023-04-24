@@ -1,15 +1,10 @@
 package com.example.demo.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
-import javax.management.RuntimeErrorException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
@@ -56,31 +51,4 @@ public class EmployeeServiceImpl implements EmployeeService {
         return eRepository.save(employee);
     }
 
-    @Override
-    public List<Employee> getEmployeesByName(String Name) {
-        return eRepository.findByName(Name);
-
-    }
-
-    @Override
-    public List<Employee> getEmployeesByNameAndLocation(String Name, String location) {
-        return eRepository.findByNameAndLocation(Name, location);
-    }
-
-    @Override
-    public List<Employee> getEmployeesByKeyword(String keyword) {
-        Sort sort = Sort.by(Sort.Direction.DESC, "createdAt");
-        return eRepository.findByNameContaining(keyword, sort);
-
-    }
-
-    @Override
-    public List<Employee> getEmployeesByNameOrLocation(String name, String location) {
-        return eRepository.getEmployeesByNameOrLocation(name, location);
-    }
-
-    @Override
-    public Integer deleteEmployeeByName(String name) {
-        return eRepository.deleteEmployeeByName(name);
-    }
 }

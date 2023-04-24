@@ -15,13 +15,4 @@ public interface EmployeeService {
 
     Employee updatEmployee(Employee employee);
 
-    List<Employee> getEmployeesByName(String Name);
-
-    List<Employee> getEmployeesByNameAndLocation(String Name, String location);
-
-    List<Employee> getEmployeesByKeyword(String keyword);
-
-    List<Employee> getEmployeesByNameOrLocation(String name, String location);
-
-    Integer deleteEmployeeByName(String name);
 }
