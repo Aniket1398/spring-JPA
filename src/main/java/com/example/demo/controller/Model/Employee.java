@@ -10,6 +10,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -18,6 +19,7 @@ import lombok.ToString;
 @ToString
 @Entity
 @Table(name = "tbl_employee")
+@NoArgsConstructor
 public class Employee {
 
     @Id
@@ -25,10 +27,6 @@ public class Employee {
     private Long id;
 
     private String name;
-
-    @JoinColumn(name = "department_id")
-    @OneToOne
-    private Department department;
 
     public Employee(EmployeeRequest req) {
         this.name = req.getName();
